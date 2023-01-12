@@ -1,7 +1,7 @@
 resource "aws_iam_policy" "sagemaker_ack_controller_studio_access" {
   name_prefix        = "${local.service}-ack-controller-policy"
   description = "IAM policy for the ${local.service} ack controller"
-  policy        = "${file("../../../awsconfigs/infra_configs/iam_ack_oidc_sm_studio_policy.json")}"
+  policy        = "${file("../../kubeflow-manifests/awsconfigs/infra_configs/iam_ack_oidc_sm_studio_policy.json")}"
 }
 
 module "irsa" {
@@ -24,7 +24,7 @@ module "helm_addon" {
   helm_config = local.helm_config
   set_values = [
     {
-      name = "aws.region" 
+      name = "aws.region"
       value = var.addon_context.aws_region_name
     },
     {

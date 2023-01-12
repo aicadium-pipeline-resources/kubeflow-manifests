@@ -1,7 +1,7 @@
 resource "aws_iam_policy" "profile_controller_policy" {
   name_prefix        = "profile-controller-policy"
   description = "IAM policy for the kubeflow pipelines profile controller"
-  policy        = "${file("../../../awsconfigs/infra_configs/iam_profile_controller_policy.json")}"
+  policy        = "${file("../../kubeflow-manifests/awsconfigs/infra_configs/iam_profile_controller_policy.json")}"
 }
 
 module "irsa" {
@@ -31,7 +31,7 @@ resource "kubernetes_annotations" "sa_role_arn" {
     name        = module.irsa.service_account
     namespace   = module.irsa.namespace
   }
-  annotations = { 
+  annotations = {
     "eks.amazonaws.com/role-arn" : module.irsa.irsa_iam_role_arn
   }
 
